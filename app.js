@@ -155,10 +155,11 @@ console.log(new Date(2024, 11, 25));
 //  Question No 16   //
 
 
-let num1 = Number(prompt("Enter the first number:"));
-let num2 = Number(prompt("Enter the second number:"));
-let operator = prompt("Enter an operator (+, -, *, /):");
+var  num1 = Number(prompt("Enter the first number:"));
+var num2 = Number(prompt("Enter the second number:"));
+   var operator= prompt("Enter an operator (+, -, *, /):");
 
+    
 function calculate(a, b, op) {
   switch(op) {
     case "+": return a + b;
@@ -177,7 +178,7 @@ alert("Result: " + calculate(num1, num2, operator));
 var globalCounter = 0;
 
 function incrementCounter() {
-  let globalCounter = 0;  
+  var globalCounter = 0;  
   globalCounter++;         
   console.log("Local:", globalCounter);
 
@@ -226,86 +227,146 @@ console.log(dayName);
 
 //   Queston 19   //
 
-let k = 10;
-while(k > 0) console.log(k--);
+var i = 10;
+
+while (i >= 1) {
+  console.log(i);
+  i--;
+}
+
 console.log("Blast off!");
 
-let n = 5, fact = 1;
-while(n > 0) fact *= n--;
-console.log("Factorial of 5:", fact);
+
+
 
 //   Queston 20   //
 
-let enteredPassword = "", attempts = 0;
+var enteredPassword = "";
+var attempts = 0;
 
 do {
   enteredPassword = prompt("Enter password:");
   attempts++;
+
 } while (enteredPassword !== "secret123" && attempts < 5);
 
-alert(enteredPassword === "secret123" ? "Access granted!" : "Access denied!");
+if (enteredPassword === "secret123") {
+  alert("Access granted");
+} else {
+  alert("Too many attempts");
+} 
 
 //   Queston 21    //
 
 var numbers = [12, 45, 78, 23, 56, 89, 34];
 
-var max = numbers[0];
-var hum = 0;
-var greater50 = [];
-var reversed = [];
 
-for (var i = 0; i < numbers.length; i++) {
+var max = numbers[0];
+for (var i = 1; i < numbers.length; i++)
   if (numbers[i] > max) max = numbers[i];
-  hum += numbers[i];                             
-  if (numbers[i] > 50) greater50.push(numbers[i]);
-  reversed.unshift(numbers[i]);                  
+console.log("Max:", max);
+
+  var hum = 0;
+for (var i = 0; i < numbers.length; i++) sum += numbers[i];
+var avg = hum / numbers.length;
+console.log("Average:", avg);
+
+var gt50 = [];
+for (var i = 0; i < numbers.length; i++)
+  if (numbers[i] > 50) gt50.push(numbers[i]);
+console.log("Greater than 50:", gt50);
+
+
+var rev = [];
+for (var i = numbers.length - 1; i >= 0; i--)
+  rev.push(numbers[i]);
+console.log("Reversed:", rev);
+
+
+
+
+
+//   Queston 22   //
+
+function handleClick() {
+  var user = document.getElementById("username").value;
+
+  if (user === "") {
+    alert("Username is required");
+  } else {
+    document.getElementById("greeting").innerHTML =
+      "Welcome, " + user + "!";
+    document.getElementById("username").value = "";
+  }
 }
 
-console.log("Max:", max);
-console.log("Average:", hum / numbers.length);
-console.log("Numbers >50:", greater50);
-console.log("Reversed:", reversed);
 
 //   Queston 23   //
-
 function validateForm(email, password) {
-  if (!email.includes("@")) return console.log("Email must contain '@'"), false;
-  if (password.length < 8) return console.log("Password must be at least 8 characters"), false;
-  return true;
-}
 
-console.log(validateForm("user@example.com", "mypassword")); 
-console.log(validateForm("userexample.com", "mypassword"));   
-console.log(validateForm("user@example.com", "pass"));       
+  if (email.indexOf("@") === -1) {
+    console.log("Error: Email must contain @");
+    return false;
+  }
+
+  if (password.length < 8) {
+    console.log("Error: Password must be at least 8 characters");
+    return false;
+  }
+
+  return true;
+}      
 
 //   Queston 24   //
 
-function convertTemperature(t, u) {
-  return u === "C" ? ((t*9/5)+32).toFixed(1) : ((t-32)*5/9).toFixed(1);
-}
+function convertTemperature(temp, unit) {
+  var result;
 
-console.log(convertTemperature(0, "C"));   // 32.0
-console.log(convertTemperature(32, "F"));  // 0.0
-console.log(convertTemperature(100, "C")); // 212.0
-console.log(convertTemperature(212, "F")); // 100.0
+  if (unit === "C") {
+    result = (temp * 9 / 5) + 32;
+  } else if (unit === "F") {
+    result = (temp - 32) * 5 / 9;
+  }
+
+  return result.toFixed(1);
+}
 
 //   Queston 25   //
 
-let cart = [];
+var cart = [];
 
-const addItem = (n, p) => cart.push({name: n, price: p});
-const removeItem = n => cart = cart.filter(i => i.name !== n);
-const calculateTotal = () => cart.reduce((sum, i) => sum + i.price, 0);
-const applyDiscount = pct => calculateTotal() * (1 - pct/100);
-const listItems = () => cart.map(i => i.name);
+function addItem(name, price) {
+  cart.push({ name: name, price: price });
+}
 
-addItem("Apple", 50);
-addItem("Banana", 30);
-console.log(listItems());       
-console.log(calculateTotal());  
-console.log(applyDiscount(10)); 
-removeItem("Apple");
-console.log(listItems());      
+function removeItem(name) {
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].name === name) {
+      cart.splice(i, 1);
+      break;
+    }
+  }
+}
+
+function calculateTotal() {
+  var total = 0;
+  for (var i = 0; i < cart.length; i++) {
+    total += cart[i].price;
+  }
+  return total;
+}
+
+function applyDiscount(percent) {
+  return calculateTotal() - (calculateTotal() * percent / 100);
+}
+
+function listItems() {
+  var names = [];
+  for (var i = 0; i < cart.length; i++) {
+    names.push(cart[i].name);
+  }
+  return names;
+}     
 
 
 
